@@ -57,14 +57,18 @@ O ícone do BUDO Timer aparece na tela inicial. Ele abre em tela cheia, funciona
 1. Faça a mudança em `src/budo-timer.html`.
 2. Na pasta do projeto, rode `python3 build_tv.py` (no Windows, `py build_tv.py`).
 3. Copie `tizen/index.html` (e `config.xml` ou `icon.png`, se mudaram) para a pasta do projeto no Tizen Studio, por exemplo `C:\Users\<você>\workspace\BudoTimer`.
-4. No Tizen Studio: botão direito no projeto, **Refresh** e depois **Run As > Tizen Web Application**.
-
-Se der erro de desinstalação, feche o app na TV e instale pelo Prompt de Comando:
+4. No Tizen Studio: botão direito no projeto, **Refresh** e depois **Build Signed Package** (gera o `BudoTimer.wgt` nessa pasta).
+5. Com a TV ligada e o app fechado nela, instale por cima da versão antiga pelo Prompt de Comando. Assim a TV mantém os treinos e ajustes salvos:
 
 ```
 C:\tizen-studio\tools\sdb.exe connect <IP da TV>
-C:\tizen-studio\tools\sdb.exe install C:\Users\<você>\workspace\BudoTimer\BudoTimer.wgt
+cd /d C:\Users\<você>\workspace\BudoTimer
+C:\tizen-studio\tools\ide\bin\tizen.bat install -n BudoTimer.wgt -s <IP da TV>:26101
 ```
+
+Atenção: em TV Samsung, `sdb.exe install` só copia o arquivo e não instala. Use o `tizen.bat install`.
+
+Depois, feche o app na TV (botão Voltar com o timer parado) e abra de novo pelo menu Apps.
 
 ## Instalar numa TV Samsung nova
 
@@ -72,7 +76,7 @@ C:\tizen-studio\tools\sdb.exe install C:\Users\<você>\workspace\BudoTimer\BudoT
 2. Na TV: Apps, digitar `12345`, ligar **Developer Mode** com o IP do computador e reiniciar a TV.
 3. Conectar: `C:\tizen-studio\tools\sdb.exe connect <IP da TV>`.
 4. Certificate Manager: perfil Samsung > TV, com o código (DUID) da TV na lista do distribuidor. Para ver o DUID de uma TV conectada: `sdb.exe shell 0 getduid`.
-5. Criar o projeto (Template > TV > Web Application > Basic Project), copiar os três arquivos de `tizen/` por cima e rodar **Run As > Tizen Web Application**.
+5. Criar o projeto (Template > TV > Web Application > Basic Project), copiar os três arquivos de `tizen/` por cima e rodar **Run As > Tizen Web Application** (ou **Build Signed Package** e o `tizen.bat install` acima).
 
 ## Importante
 
