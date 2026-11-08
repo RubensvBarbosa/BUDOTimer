@@ -305,7 +305,7 @@ body{
   <main class="stage">
     <div class="phase-row">
       <div class="phase" id="phaseLabel">Pronto</div>
-      <div class="paused-tag" id="pausedTag" hidden>Pausado</div>
+      <div class="paused-tag" id="pausedTag" hidden data-i18n="Pausado">Pausado</div>
     </div>
     <div class="clock" id="clock" aria-live="off"></div>
     <div class="progress" aria-hidden="true"><span id="bar"></span></div>
@@ -321,27 +321,27 @@ body{
   <div class="controls-wrap">
     <nav class="controls" id="controls" aria-label="Controles do timer">
       <button class="btn primary" id="btnPlay" data-nav>Iniciar</button>
-      <button class="btn" id="btnReset" data-nav>Reiniciar</button>
-      <button class="btn" id="btnSkip" data-nav>Pular fase</button>
-      <button class="btn" id="btnPresets" data-nav>Treinos</button>
+      <button class="btn" id="btnReset" data-nav data-i18n="Reiniciar">Reiniciar</button>
+      <button class="btn" id="btnSkip" data-nav data-i18n="Pular fase">Pular fase</button>
+      <button class="btn" id="btnPresets" data-nav data-i18n="Treinos">Treinos</button>
       <button class="btn" id="btnFull" data-nav>Tela cheia</button>
     </nav>
-    <p class="hint"><kbd>◀ ▶</kbd> escolhem &nbsp;·&nbsp; <kbd>OK</kbd> confirma &nbsp;·&nbsp; <kbd>1</kbd> a <kbd>9</kbd> trocam o treino</p>
+    <p class="hint" data-i18n="hint"><kbd>◀ ▶</kbd> escolhem &nbsp;·&nbsp; <kbd>OK</kbd> confirma &nbsp;·&nbsp; <kbd>1</kbd> a <kbd>9</kbd> trocam o treino</p>
   </div>
 
   <!-- Treinos -->
   <div class="layer" id="presetsLayer" hidden role="dialog" aria-label="Treinos">
     <div class="sheet">
       <div class="sheet-head">
-        <h2>Treinos</h2>
-        <p>OK seleciona o treino. OK de novo no mesmo treino abre o timer. Voltar fecha.</p>
+        <h2 data-i18n="Treinos">Treinos</h2>
+        <p data-i18n="presetsHelp">OK seleciona o treino. OK de novo no mesmo treino abre o timer. Voltar fecha.</p>
       </div>
       <div class="preset-grid" id="presetGrid"></div>
       <div class="sheet-foot">
-        <p class="sheet-note">As faixas começam com o tempo de luta da IBJJF para adultos. Tempo, descanso e rounds da faixa selecionada mudam em Ajustes, e a etiqueta Ajustado mostra quando ela está fora do padrão.</p>
+        <p class="sheet-note" data-i18n="presetsNote">As faixas começam com o tempo de luta da IBJJF para adultos. Tempo, descanso e rounds da faixa selecionada mudam em Ajustes, e a etiqueta Ajustado mostra quando ela está fora do padrão.</p>
         <div class="sheet-actions">
-          <button class="btn" id="btnSettings" data-nav>Ajustes</button>
-          <button class="btn primary" id="btnClosePresets" data-nav>Fechar</button>
+          <button class="btn" id="btnSettings" data-nav data-i18n="Ajustes">Ajustes</button>
+          <button class="btn primary" id="btnClosePresets" data-nav data-i18n="Fechar">Fechar</button>
         </div>
       </div>
     </div>
@@ -351,18 +351,18 @@ body{
   <div class="layer" id="editorLayer" hidden role="dialog" aria-label="Novo treino">
     <div class="sheet narrow">
       <div class="sheet-head">
-        <h2 id="edTitle">Novo treino</h2>
-        <p>▲ ▼ mudam de linha, ◀ ▶ mudam o valor.</p>
+        <h2 id="edTitle" data-i18n="Novo treino">Novo treino</h2>
+        <p data-i18n="editorHelp">▲ ▼ mudam de linha, ◀ ▶ mudam o valor.</p>
       </div>
       <label class="namebox" for="nameInput">
-        <span>Nome do treino</span>
+        <span data-i18n="Nome do treino">Nome do treino</span>
         <input id="nameInput" type="text" maxlength="28" placeholder="Ex.: Rola de sexta" autocomplete="off" spellcheck="false" data-nav>
       </label>
       <div class="rows" id="draftRows"></div>
       <div class="preview" id="draftPreview"></div>
       <div class="sheet-actions">
-        <button class="btn" id="btnCancel" data-nav>Cancelar</button>
-        <button class="btn primary" id="btnSave" data-nav>Salvar treino</button>
+        <button class="btn" id="btnCancel" data-nav data-i18n="Cancelar">Cancelar</button>
+        <button class="btn primary" id="btnSave" data-nav data-i18n="Salvar treino">Salvar treino</button>
       </div>
     </div>
   </div>
@@ -371,14 +371,14 @@ body{
   <div class="layer" id="settingsLayer" hidden role="dialog" aria-label="Ajustes">
     <div class="sheet wide">
       <div class="sheet-head">
-        <h2>Ajustes</h2>
-        <p>▲ ▼ passam de uma opção para a outra, ◀ ▶ mudam o valor. Nada muda até você salvar.</p>
+        <h2 data-i18n="Ajustes">Ajustes</h2>
+        <p data-i18n="settingsHelp">▲ ▼ passam de uma opção para a outra, ◀ ▶ mudam o valor. Nada muda até você salvar.</p>
       </div>
       <div class="settings-cols" id="settingsCols">
       <div class="settings-col">
       <h3 class="group-title" id="selTitle">Treino selecionado</h3>
       <label class="namebox" for="setName" id="setNameBox" hidden>
-        <span>Nome do treino</span>
+        <span data-i18n="Nome do treino">Nome do treino</span>
         <input id="setName" type="text" maxlength="28" autocomplete="off" spellcheck="false" data-nav>
       </label>
       <div class="rows" id="beltRows"></div>
@@ -387,16 +387,16 @@ body{
       </div>
       </div>
       <div class="settings-col">
-      <h3 class="group-title">Apitos e som</h3>
+      <h3 class="group-title" data-i18n="Som e idioma">Som e idioma</h3>
       <div class="rows" id="genRows"></div>
       </div>
       </div>
-      <p class="sheet-note">Restaurar padrão volta todas as faixas aos tempos da IBJJF, com os rounds e o descanso sugeridos, e os apitos aos valores iniciais. Os treinos que você criou não são apagados.</p>
+      <p class="sheet-note" data-i18n="restoreNote">Restaurar padrão volta todas as faixas aos tempos da IBJJF, com os rounds e o descanso sugeridos, e os apitos aos valores iniciais. Os treinos que você criou não são apagados.</p>
       <div class="sheet-actions">
         <button class="btn danger push" id="btnRestore" data-nav>Restaurar padrão</button>
-        <button class="btn" id="btnTest" data-nav>Ouvir apito</button>
-        <button class="btn" id="btnCloseSettings" data-nav>Fechar</button>
-        <button class="btn primary" id="btnDone" data-nav>Salvar</button>
+        <button class="btn" id="btnTest" data-nav data-i18n="Ouvir apito">Ouvir apito</button>
+        <button class="btn" id="btnCloseSettings" data-nav data-i18n="Fechar">Fechar</button>
+        <button class="btn primary" id="btnDone" data-nav data-i18n="Salvar">Salvar</button>
       </div>
     </div>
   </div>
@@ -405,14 +405,54 @@ body{
 
   <div class="rotate" aria-hidden="true">
     <div class="phone"></div>
-    Gire o celular
-    <small>O BUDO Timer foi feito para a tela deitada.</small>
+    <span data-i18n="Gire o celular">Gire o celular</span>
+    <small data-i18n="rotateSmall">O BUDO Timer foi feito para a tela deitada.</small>
   </div>
 </div>
 
 <script>
 (function(){
 'use strict';
+
+/* ---------- Idioma ---------- */
+/* Os textos em português são a chave; EN traz a tradução. */
+var EN = {
+  'Pronto':'Ready', 'Fim do treino':'Workout complete', 'Prepare-se':'Get ready', 'Luta':'Roll', 'Descanso':'Rest', 'Pausado':'Paused',
+  'de':'of', ' round concluído':' round complete', ' rounds concluídos':' rounds complete',
+  'Começa o round 1':'Up next: round 1', 'Próximo: round':'Next: round',
+  'luta':'roll', 'descanso':'rest', 'sem descanso':'no rest',
+  'Iniciar':'Start', 'Pausar':'Pause', 'Continuar':'Resume', 'Recomeçar':'Restart', 'Reiniciar':'Reset', 'Pular fase':'Skip',
+  'Treinos':'Workouts', 'Tela cheia':'Full screen', 'Sair da tela cheia':'Exit full screen',
+  'hint':'<kbd>◀ ▶</kbd> move &nbsp;·&nbsp; <kbd>OK</kbd> select &nbsp;·&nbsp; <kbd>1</kbd> to <kbd>9</kbd> switch workout',
+  'presetsHelp':'OK selects a workout. OK again on the same workout opens the timer. Back closes.',
+  'presetsNote':'Belts start with the IBJJF adult match times. Roll time, rest and rounds of the selected belt can be changed in Settings, and the Adjusted tag shows when a belt is off the default.',
+  'Ajustes':'Settings', 'Fechar':'Close', 'Selecionado':'Selected', 'Ajustado':'Adjusted', 'Criado':'Custom',
+  'Criar treino':'New workout', 'Escolha o nome, os tempos e a cor da faixa':'Pick a name, the times and the belt color',
+  ' selecionado. OK de novo abre o timer':' selected. Press OK again to open the timer',
+  'Novo treino':'New workout', 'editorHelp':'▲ ▼ change row, ◀ ▶ change the value.', 'Nome do treino':'Workout name',
+  'Ex.: Rola de sexta':'e.g. Friday rolls', 'Cancelar':'Cancel', 'Salvar treino':'Save workout', 'total de':'total',
+  'settingsHelp':'▲ ▼ move between options, ◀ ▶ change the value. Nothing changes until you save.',
+  'Treino selecionado: ':'Selected workout: ', 'Excluir este treino':'Delete this workout', 'Confirmar exclusão':'Confirm delete',
+  'Som e idioma':'Sound and language',
+  'restoreNote':'Restore defaults sets every belt back to the IBJJF times, with the suggested rounds and rest, and the beeps to their initial values. Workouts you created are kept.',
+  'Restaurar padrão':'Restore defaults', 'Confirmar restauração':'Confirm restore', 'Ouvir apito':'Play beep', 'Salvar':'Save',
+  'Tempo de luta':'Roll time', 'Cor da faixa':'Belt color', 'Tipo de apito':'Beep sound', 'Apitos no fim de cada tempo':'Countdown beeps',
+  'Volume':'Volume', 'Preparação antes do 1º round':'Get ready before round 1', 'Idioma':'Language',
+  'Sem':'None', 'sem':'none', 'Últimos':'Last', 'Desligado':'Off', 'padrão IBJJF ':'IBJJF default ', 'padrão ':'default ',
+  'Mudo':'Mute', 'Baixo':'Low', 'Médio':'Medium', 'Alto':'High',
+  'Clássico':'Classic', 'Digital':'Digital', 'Suave':'Soft', 'Grave':'Deep', 'Sino':'Bell',
+  'Branca':'White', 'Cinza':'Gray', 'Amarela':'Yellow', 'Laranja':'Orange', 'Verde':'Green', 'Azul':'Blue', 'Roxa':'Purple', 'Marrom':'Brown', 'Preta':'Black',
+  'Faixa branca':'White belt', 'Faixa azul':'Blue belt', 'Faixa roxa':'Purple belt', 'Faixa marrom':'Brown belt', 'Faixa preta':'Black belt', 'Drill':'Drill',
+  'Ajustes salvos':'Settings saved', 'Nada foi alterado':'Nothing changed', 'Mudanças descartadas':'Changes discarded', 'Padrão restaurado':'Defaults restored',
+  'Escreva um nome para o treino':'Type a name for the workout', 'Treino criado: ':'Workout created: ', 'Treino excluído: ':'Workout deleted: ',
+  'Pause o timer para trocar de treino':'Pause the timer to switch workouts', 'Tela cheia não disponível aqui':'Full screen isn\'t available here',
+  'Gire o celular':'Turn your phone', 'rotateSmall':'BUDO Timer is made for landscape.'
+};
+var LANG = 'pt';
+function t(s){ return LANG === 'en' && EN[s] != null ? EN[s] : s; }
+function detectLang(){
+  try { var l = (navigator.language || navigator.userLanguage || '').toLowerCase(); return l.indexOf('en') === 0 ? 1 : 0; } catch(e) { return 0; }
+}
 
 /* ---------- Dados ---------- */
 var BELTS = [
@@ -439,33 +479,35 @@ var PRESETS = [
 ];
 
 var VOL_LABELS = ['Mudo','Baixo','Médio','Alto'];
+var LANG_NAMES = ['Português','English'];
 var WORK_FIELDS = [
   {key:'round',  label:'Tempo de luta', min:30, max:1200, step:30, fmt:function(v){return fmt(v);}},
-  {key:'rest',   label:'Descanso',      min:0,  max:300,  step:15, fmt:function(v){return v ? fmt(v) : 'Sem';}},
+  {key:'rest',   label:'Descanso',      min:0,  max:300,  step:15, fmt:function(v){return v ? fmt(v) : t('Sem');}},
   {key:'rounds', label:'Rounds',        min:1,  max:20,   step:1,  fmt:function(v){return String(v);}},
   {key:'belt',   label:'Cor da faixa',  min:0,  max:BELTS.length - 1, step:1, wrap:true,
-    html:function(v){return '<span class="dot" style="background:' + beltColor(v) + '"></span>' + BELTS[v].n;}}
+    html:function(v){return '<span class="dot" style="background:' + beltColor(v) + '"></span>' + t(BELTS[v].n);}}
 ];
 var SOUNDS = [{n:'Clássico'},{n:'Digital'},{n:'Suave'},{n:'Grave'},{n:'Sino'}];
 var GEN_FIELDS = [
-  {key:'tone',  label:'Tipo de apito',                min:0, max:SOUNDS.length - 1, step:1, wrap:true, fmt:function(v){return SOUNDS[v].n;}},
-  {key:'count', label:'Apitos no fim de cada tempo',  min:0, max:10, step:1, fmt:function(v){return v ? 'Últimos ' + v + ' s' : 'Desligado';}},
-  {key:'vol',   label:'Volume',                       min:0, max:3,  step:1, fmt:function(v){return VOL_LABELS[v];}},
-  {key:'prep',  label:'Preparação antes do 1º round', min:0, max:30, step:5, fmt:function(v){return v ? v + ' s' : 'Sem';}}
+  {key:'tone',  label:'Tipo de apito',                min:0, max:SOUNDS.length - 1, step:1, wrap:true, fmt:function(v){return t(SOUNDS[v].n);}},
+  {key:'count', label:'Apitos no fim de cada tempo',  min:0, max:10, step:1, fmt:function(v){return v ? t('Últimos') + ' ' + v + ' s' : t('Desligado');}},
+  {key:'vol',   label:'Volume',                       min:0, max:3,  step:1, fmt:function(v){return t(VOL_LABELS[v]);}},
+  {key:'prep',  label:'Preparação antes do 1º round', min:0, max:30, step:5, fmt:function(v){return v ? v + ' s' : t('Sem');}},
+  {key:'lang',  label:'Idioma', min:0, max:1, step:1, wrap:true, fmt:function(v){return LANG_NAMES[v];}}
 ];
 
 var BELT_FIELDS = [
   {key:'round',  label:'Tempo de luta', min:30, max:1200, step:30, fmt:function(v){ return fmt(v); }},
-  {key:'rest',   label:'Descanso',      min:0,  max:300,  step:15, fmt:function(v){ return v ? fmt(v) : 'Sem'; }},
+  {key:'rest',   label:'Descanso',      min:0,  max:300,  step:15, fmt:function(v){ return v ? fmt(v) : t('Sem'); }},
   {key:'rounds', label:'Rounds',        min:1,  max:20,   step:1,  fmt:function(v){ return plural(v, ' round', ' rounds'); }},
   {key:'belt',   label:'Cor da faixa',  min:0,  max:BELTS.length - 1, step:1, wrap:true,
-    html:function(v){ return '<span class="dot" style="background:' + beltColor(v) + '"></span>' + BELTS[v].n; }}
+    html:function(v){ return '<span class="dot" style="background:' + beltColor(v) + '"></span>' + t(BELTS[v].n); }}
 ];
 
 var STORE = 'timer-rounds-bjj-v2', OLD_STORE = 'timer-rounds-bjj-v1';
 function defaultMap(k){ var o = {}; PRESETS.forEach(function(p){ o[p.id] = p[k]; }); return o; }
 function defaults(){
-  return {activeId:'branca', prep:10, count:5, tone:0, toneV:2, vol:2, custom:[],
+  return {activeId:'branca', prep:10, count:5, tone:0, toneV:2, vol:2, lang:detectLang(), custom:[],
     presetRounds:defaultMap('rounds'), presetRound:defaultMap('round'), presetRest:defaultMap('rest')};
 }
 function clampN(v, lo, hi, d){ return Math.min(hi, Math.max(lo, Math.round(num(v, d)))); }
@@ -488,6 +530,7 @@ function load(){
       var o = JSON.parse(s);
       ['prep','count','vol'].forEach(function(k){ c[k] = num(o[k], c[k]); });
       c.tone = clampN(o.tone, 0, SOUNDS.length - 1, 0);
+      if (o.lang === 0 || o.lang === 1) c.lang = o.lang;
       if (o.toneV !== 2 && (c.tone === 2 || c.tone === 3)) c.tone = 0;
       c.custom = cleanCustom(o.custom);
       if (typeof o.activeId === 'string') c.activeId = o.activeId;
@@ -518,7 +561,7 @@ function presetsView(){
   return PRESETS.map(function(p){
     var round = cfg.presetRound[p.id] || p.round, rest = cfg.presetRest[p.id], rounds = cfg.presetRounds[p.id] || p.rounds;
     if (typeof rest !== 'number') rest = p.rest;
-    return {id:p.id, name:p.name, belt:p.belt, round:round, rest:rest, rounds:rounds,
+    return {id:p.id, name:t(p.name), belt:p.belt, round:round, rest:rest, rounds:rounds,
       tuned:round !== p.round || rest !== p.rest || rounds !== p.rounds};
   });
 }
@@ -731,16 +774,17 @@ function render(){
   var alert = active && p.t === 'work' && cfg.count > 0 && Math.ceil(remain / 1000) <= cfg.count;
   app.setAttribute('data-alert', alert ? '1' : '0');
 
-  phaseLabel.textContent = state === 'idle' ? 'Pronto' : state === 'done' ? 'Fim do treino' :
-    ({prep:'Prepare-se', work:'Luta', rest:'Descanso'})[p.t];
+  phaseLabel.textContent = state === 'idle' ? t('Pronto') : state === 'done' ? t('Fim do treino') :
+    t(({prep:'Prepare-se', work:'Luta', rest:'Descanso'})[p.t]);
   pausedTag.hidden = state !== 'paused';
 
   var n = w.rounds, label;
-  if (state === 'idle') label = plural(n, ' round', ' rounds') + ' <em>de ' + fmt(w.round) + '</em>';
-  else if (state === 'done') label = plural(n, ' round concluído', ' rounds concluídos');
-  else if (p.t === 'prep') label = 'Começa o round 1 <em>de ' + n + '</em>';
-  else if (p.t === 'rest') label = 'Próximo: round ' + p.r + ' <em>de ' + n + '</em>';
-  else label = 'Round ' + p.r + ' <em>de ' + n + '</em>';
+  var de = ' <em>' + t('de') + ' ';
+  if (state === 'idle') label = plural(n, ' round', ' rounds') + de + fmt(w.round) + '</em>';
+  else if (state === 'done') label = plural(n, t(' round concluído'), t(' rounds concluídos'));
+  else if (p.t === 'prep') label = t('Começa o round 1') + de + n + '</em>';
+  else if (p.t === 'rest') label = t('Próximo: round') + ' ' + p.r + de + n + '</em>';
+  else label = 'Round ' + p.r + de + n + '</em>';
   roundLabel.innerHTML = label;
 
   var html = '';
@@ -757,10 +801,10 @@ function render(){
   belt.style.setProperty('--belt', beltColor(w.belt));
   belt.style.setProperty('--tip', tipColor(w.belt));
 
-  setupLabel.innerHTML = '<b>' + esc(w.name) + '</b> &nbsp;·&nbsp; ' + fmt(w.round) + ' luta &nbsp;·&nbsp; ' +
-    (w.rest ? fmt(w.rest) + ' descanso' : 'sem descanso') + ' &nbsp;·&nbsp; ' + plural(n, ' round', ' rounds');
+  setupLabel.innerHTML = '<b>' + esc(w.name) + '</b> &nbsp;·&nbsp; ' + fmt(w.round) + ' ' + t('luta') + ' &nbsp;·&nbsp; ' +
+    (w.rest ? fmt(w.rest) + ' ' + t('descanso') : t('sem descanso')) + ' &nbsp;·&nbsp; ' + plural(n, ' round', ' rounds');
 
-  btnPlay.textContent = state === 'running' ? 'Pausar' : state === 'paused' ? 'Continuar' : state === 'done' ? 'Recomeçar' : 'Iniciar';
+  btnPlay.textContent = t(state === 'running' ? 'Pausar' : state === 'paused' ? 'Continuar' : state === 'done' ? 'Recomeçar' : 'Iniciar');
   renderClock();
 }
 function retrigger(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
@@ -785,7 +829,7 @@ function scheduleHide(){
 
 /* ---------- Lista de treinos ---------- */
 function swatch(b){ return '<span class="swatch" style="--belt:' + beltColor(b) + ';--tip:' + tipColor(b) + '"><b></b><s></s></span>'; }
-function metaText(w){ return fmt(w.round) + ' luta · ' + (w.rest ? fmt(w.rest) + ' descanso' : 'sem descanso') + ' · ' + plural(w.rounds, ' round', ' rounds'); }
+function metaText(w){ return fmt(w.round) + ' ' + t('luta') + ' · ' + (w.rest ? fmt(w.rest) + ' ' + t('descanso') : t('sem descanso')) + ' · ' + plural(w.rounds, ' round', ' rounds'); }
 function renderPresets(){
   var list = allWorkouts(), html = '';
   for (var i = 0; i < list.length; i++) {
@@ -797,22 +841,22 @@ function renderPresets(){
         '<span class="pname">' + esc(w.name) + '</span>' +
         '<span class="meta">' + metaText(w) + '</span>' +
         ((on || w.tuned || custom) ? '<span class="badges">' +
-          (on ? '<span class="badge">Selecionado</span>' : '') +
-          (w.tuned ? '<span class="badge tuned">Ajustado</span>' : '') +
-          (custom ? '<span class="badge mine">Criado</span>' : '') +
+          (on ? '<span class="badge">' + t('Selecionado') + '</span>' : '') +
+          (w.tuned ? '<span class="badge tuned">' + t('Ajustado') + '</span>' : '') +
+          (custom ? '<span class="badge mine">' + t('Criado') + '</span>' : '') +
         '</span>' : '') +
       '</button>' +
     '</div>';
   }
   html += '<div class="cell"><button class="preset new" data-nav id="btnNew">' +
-    '<span class="plus">+</span><span class="pname">Criar treino</span>' +
-    '<span class="meta">Escolha o nome, os tempos e a cor da faixa</span></button></div>';
+    '<span class="plus">+</span><span class="pname">' + t('Criar treino') + '</span>' +
+    '<span class="meta">' + t('Escolha o nome, os tempos e a cor da faixa') + '</span></button></div>';
   presetGrid.innerHTML = html;
 }
 function applyWorkout(id, inLayer){
   var w = findWorkout(id); if (!w) return;
   cfg.activeId = w.id; save(); reset(); renderPresets();
-  toast(inLayer ? w.name + ' selecionado. OK de novo abre o timer' : w.name + ': ' + fmt(w.round) + ' × ' + w.rounds);
+  toast(inLayer ? w.name + t(' selecionado. OK de novo abre o timer') : w.name + ': ' + fmt(w.round) + ' × ' + w.rounds);
 }
 /* Em Treinos: 1º OK seleciona e fica na lista; OK no treino já selecionado volta para o timer */
 function pickInLayer(id){
@@ -827,7 +871,7 @@ function rowsHtml(fields, scope, src){
   for (var i = 0; i < fields.length; i++) {
     var f = fields[i];
     html += '<div class="row" tabindex="0" data-nav data-adjust="' + f.key + '" data-scope="' + scope + '" id="row-' + scope + '-' + f.key + '">' +
-      '<span class="rlabel">' + f.label + '</span>' +
+      '<span class="rlabel">' + t(f.label) + '</span>' +
       '<span class="val">' +
         '<button class="step" tabindex="-1" data-k="' + f.key + '" data-s="' + scope + '" data-d="-1" aria-label="Diminuir">‹</button>' +
         '<output id="out-' + scope + '-' + f.key + '"></output>' +
@@ -863,22 +907,22 @@ function adjust(key, dir, scope){
 var sdraft = null, restArmed = false, restT = null, btnRestore = $('btnRestore');
 function makeSDraft(){
   var w = act();
-  return {prep:cfg.prep, count:cfg.count, tone:cfg.tone, vol:cfg.vol, round:w.round, rest:w.rest, rounds:w.rounds,
+  return {prep:cfg.prep, count:cfg.count, tone:cfg.tone, vol:cfg.vol, lang:cfg.lang, round:w.round, rest:w.rest, rounds:w.rounds,
     name:w.name, belt:w.belt};
 }
 function isPreset(id){ return !!presetDef(id); }
 /* Título da seção com o nome do treino e, nas faixas, o valor padrão ao lado de cada linha */
 function labelSelected(){
   var w = act(), p = presetDef(w.id);
-  $('selTitle').textContent = 'Treino selecionado: ' + w.name;
+  $('selTitle').textContent = t('Treino selecionado: ') + w.name;
   var hints = {
-    round:  p ? 'padrão IBJJF ' + fmt(p.round) : '',
-    rest:   p ? 'padrão ' + (p.rest ? fmt(p.rest) : 'sem') : '',
-    rounds: p ? 'padrão ' + p.rounds : ''
+    round:  p ? t('padrão IBJJF ') + fmt(p.round) : '',
+    rest:   p ? t('padrão ') + (p.rest ? fmt(p.rest) : t('sem')) : '',
+    rounds: p ? t('padrão ') + p.rounds : ''
   };
   BELT_FIELDS.forEach(function(f){
     var row = $('row-g-' + f.key); if (!row) return;
-    row.querySelector('.rlabel').innerHTML = f.label + (hints[f.key] ? ' <em>' + hints[f.key] + '</em>' : '');
+    row.querySelector('.rlabel').innerHTML = t(f.label) + (hints[f.key] ? ' <em>' + hints[f.key] + '</em>' : '');
   });
   /* Nome, cor e Excluir só existem para treinos criados; as faixas padrão não podem ser excluídas */
   var mine = !p;
@@ -900,7 +944,7 @@ function sdraftChanged(){
   return false;
 }
 function syncSettings(){ if (!sdraft) return; syncRows(GEN_FIELDS, 'g', sdraft); syncRows(BELT_FIELDS, 'g', sdraft); }
-function disarmRestore(){ restArmed = false; clearTimeout(restT); btnRestore.textContent = 'Restaurar padrão'; }
+function disarmRestore(){ restArmed = false; clearTimeout(restT); btnRestore.textContent = t('Restaurar padrão'); }
 function openSettings(){
   sdraft = makeSDraft(); previewVol = sdraft.vol;
   disarmRestore(); labelSelected(); syncSettings();
@@ -914,9 +958,10 @@ function applyCfgChange(oldSig){
 function saveSettings(){
   if (!sdraft) return;
   var cw = findCustom(cfg.activeId), newName = cleanName(sdraft.name);
-  if (cw && !newName) { toast('Escreva um nome para o treino'); $('setName').focus(); return; }
+  if (cw && !newName) { toast(t('Escreva um nome para o treino')); $('setName').focus(); return; }
   var oldSig = workoutSig(), changed = sdraftChanged();
-  cfg.prep = sdraft.prep; cfg.count = sdraft.count; cfg.tone = sdraft.tone; cfg.vol = sdraft.vol;
+  var langChanged = cfg.lang !== sdraft.lang;
+  cfg.prep = sdraft.prep; cfg.count = sdraft.count; cfg.tone = sdraft.tone; cfg.vol = sdraft.vol; cfg.lang = sdraft.lang;
   if (cw) {
     cw.name = newName; cw.belt = sdraft.belt;
     cw.round = sdraft.round; cw.rest = sdraft.rest; cw.rounds = sdraft.rounds;
@@ -927,16 +972,17 @@ function saveSettings(){
   }
   applyCfgChange(oldSig);
   closeL();
-  toast(changed ? 'Ajustes salvos' : 'Nada foi alterado');
+  if (langChanged) applyLang();
+  toast(t(changed ? 'Ajustes salvos' : 'Nada foi alterado'));
 }
 function closeSettings(){
   var changed = sdraftChanged();
   closeL();
-  if (changed) toast('Mudanças descartadas');
+  if (changed) toast(t('Mudanças descartadas'));
 }
 function restoreDefaults(){
   if (!restArmed) {
-    restArmed = true; btnRestore.textContent = 'Confirmar restauração';
+    restArmed = true; btnRestore.textContent = t('Confirmar restauração');
     restT = setTimeout(disarmRestore, 4000);
     return;
   }
@@ -948,7 +994,7 @@ function restoreDefaults(){
   sdraft = makeSDraft(); previewVol = sdraft.vol;
   if (findCustom(cfg.activeId)) sdraft.name = typed;
   syncSettings(); disarmRestore();
-  toast('Padrão restaurado');
+  toast(t('Padrão restaurado'));
 }
 
 /* ---------- Criar treino ---------- */
@@ -957,7 +1003,7 @@ function cleanName(s){ return String(s || '').replace(/\s+/g, ' ').trim().slice(
 function renderPreview(){
   if (!draft) return;
   var total = draft.rounds * draft.round + Math.max(0, draft.rounds - 1) * draft.rest;
-  draftPreview.innerHTML = swatch(draft.belt) + '<span><b>' + metaText(draft) + '</b> · total de ' + fmtLong(total) + '</span>';
+  draftPreview.innerHTML = swatch(draft.belt) + '<span><b>' + metaText(draft) + '</b> · ' + t('total de') + ' ' + fmtLong(total) + '</span>';
 }
 function openEditor(){
   draft = {name:'', round:300, rest:60, rounds:5, belt:0};
@@ -967,23 +1013,23 @@ function openEditor(){
 }
 function saveDraft(){
   var name = cleanName(nameInput.value);
-  if (!name) { toast('Escreva um nome para o treino'); nameInput.focus(); return; }
+  if (!name) { toast(t('Escreva um nome para o treino')); nameInput.focus(); return; }
   var id = 'c' + Date.now().toString(36);
   cfg.custom.push({id:id, name:name, round:draft.round, rest:draft.rest, rounds:draft.rounds, belt:draft.belt});
   cfg.activeId = id; save(); reset(); renderPresets();
   closeL();
   var card = $('w-' + id); if (card) card.focus();
-  toast('Treino criado: ' + name);
+  toast(t('Treino criado: ') + name);
 }
 nameInput.addEventListener('input', function(){ if (draft) draft.name = nameInput.value; });
 
 /* ---------- Excluir treino criado (só aparece em Ajustes para treinos criados) ---------- */
 var btnDeleteSel = $('btnDeleteSel'), delArmed = false, delT = null;
-function disarmDelete(){ delArmed = false; clearTimeout(delT); btnDeleteSel.textContent = 'Excluir este treino'; }
+function disarmDelete(){ delArmed = false; clearTimeout(delT); btnDeleteSel.textContent = t('Excluir este treino'); }
 function deleteSelected(){
   var w = findCustom(cfg.activeId); if (!w) return;
   if (!delArmed) {
-    delArmed = true; btnDeleteSel.textContent = 'Confirmar exclusão';
+    delArmed = true; btnDeleteSel.textContent = t('Confirmar exclusão');
     delT = setTimeout(disarmDelete, 4000);
     return;
   }
@@ -992,7 +1038,7 @@ function deleteSelected(){
   cfg.activeId = PRESETS[0].id;
   save(); reset(); renderPresets(); disarmDelete();
   closeL();
-  toast('Treino excluído: ' + name);
+  toast(t('Treino excluído: ') + name);
 }
 
 /* ---------- Camadas empilhadas ---------- */
@@ -1105,7 +1151,7 @@ document.addEventListener('keydown', function(e){
     var list = allWorkouts();
     if (n < list.length) {
       e.preventDefault();
-      if (state === 'running') { showUI(); toast('Pause o timer para trocar de treino'); return; }
+      if (state === 'running') { showUI(); toast(t('Pause o timer para trocar de treino')); return; }
       if (layer) pickInLayer(list[n].id);
       else applyWorkout(list[n].id);
       return;
@@ -1190,11 +1236,11 @@ btnFull.addEventListener('click', function(){
     else {
       var r = document.documentElement, req = r.requestFullscreen || r.webkitRequestFullscreen;
       var pr = req && req.call(r);
-      if (pr && pr.catch) pr.catch(function(){ toast('Tela cheia não disponível aqui'); });
+      if (pr && pr.catch) pr.catch(function(){ toast(t('Tela cheia não disponível aqui')); });
     }
-  } catch(e) { toast('Tela cheia não disponível aqui'); }
+  } catch(e) { toast(t('Tela cheia não disponível aqui')); }
 });
-function fsLabel(){ btnFull.textContent = fsEl() ? 'Sair da tela cheia' : 'Tela cheia'; }
+function fsLabel(){ btnFull.textContent = t(fsEl() ? 'Sair da tela cheia' : 'Tela cheia'); }
 document.addEventListener('fullscreenchange', fsLabel);
 document.addEventListener('webkitfullscreenchange', fsLabel);
 
@@ -1220,6 +1266,24 @@ document.addEventListener('visibilitychange', function(){
   if (document.visibilityState === 'visible' && state === 'running') { wake(); tick(); }
 });
 
+/* ---------- Aplicar idioma ---------- */
+function applyLang(){
+  LANG = cfg.lang === 1 ? 'en' : 'pt';
+  try { document.documentElement.lang = LANG === 'en' ? 'en' : 'pt-BR'; } catch(e) {}
+  var els = document.querySelectorAll('[data-i18n]');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i], key = el.getAttribute('data-i18n');
+    if (el.__pt == null) el.__pt = el.innerHTML;
+    el.innerHTML = (LANG === 'en' && EN[key] != null) ? EN[key] : el.__pt;
+  }
+  nameInput.placeholder = t('Ex.: Rola de sexta');
+  genRows.innerHTML = rowsHtml(GEN_FIELDS, 'g');
+  $('beltRows').innerHTML = rowsHtml(BELT_FIELDS, 'g');
+  draftRows.innerHTML = rowsHtml(WORK_FIELDS, 'd');
+  disarmRestore(); disarmDelete(); fsLabel();
+  renderPresets(); render();
+}
+
 /* ---------- Horário local ---------- */
 var nowEl = $('nowClock'), handH = $('handH'), handM = $('handM'), lastNow = '';
 function tickNow(){
@@ -1235,10 +1299,7 @@ tickNow(); setInterval(tickNow, 1000);
 
 /* ---------- Início ---------- */
 if (!findWorkout(cfg.activeId)) cfg.activeId = PRESETS[0].id;
-genRows.innerHTML = rowsHtml(GEN_FIELDS, 'g');
-$('beltRows').innerHTML = rowsHtml(BELT_FIELDS, 'g');
-draftRows.innerHTML = rowsHtml(WORK_FIELDS, 'd');
-renderPresets(); build(); render();
+build(); applyLang();
 try { btnPlay.focus(); } catch(e) {}
 })();
 </script>

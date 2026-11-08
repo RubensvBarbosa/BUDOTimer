@@ -1,5 +1,5 @@
 /* BUDO Timer: funciona sem internet depois da primeira abertura */
-var CACHE = 'budo-timer-5f7ea2cb8f';
+var CACHE = 'budo-timer-a26ec697e3';
 var FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 self.addEventListener('install', function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(FILES); }).then(function(){ return self.skipWaiting(); }));
