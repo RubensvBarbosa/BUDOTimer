@@ -216,7 +216,11 @@ body{
   .phase-row{margin-bottom:10px}
   .phase{font-size:30px}
   .paused-tag{font-size:15px}
-  .clock{font-size:54vh;line-height:.9}
+  .clock{font-size:54vh;line-height:.9;transition:color .3s,font-size .35s ease}
+  /* Durante o round, os botões saem da tela e o timer ocupa o espaço deles */
+  .controls-wrap{max-height:90px;overflow:hidden;transition:max-height .35s ease,opacity .35s,transform .35s}
+  #app.ui-off .controls-wrap{max-height:0}
+  #app.ui-off .clock{font-size:63vh}
   .progress{margin-top:3vh}
   .rounds{flex-direction:row;align-items:center;gap:14px;margin-top:6px}
   .round-label{white-space:nowrap;text-align:left}
@@ -245,10 +249,12 @@ body{
 /* No toque, as dicas de controle remoto não fazem sentido */
 @media (max-height:410px) and (orientation:landscape){
   .clock{font-size:50vh}
+  #app.ui-off .clock{font-size:60vh}
 }
 /* Celulares deitados bem baixos (ex.: iPhone SE) */
 @media (max-height:385px) and (orientation:landscape){
   .clock{font-size:45vh}
+  #app.ui-off .clock{font-size:55vh}
   .progress{margin-top:2vh}
   .now-card{padding:2px 10px 2px 6px}
   .now{font-size:30px}
@@ -272,7 +278,7 @@ body{
 }
 @media (prefers-reduced-motion:reduce){
   .clock.tick,.flash.on,.paused-tag,.now .colon,.rotate .phone{animation:none}
-  .hand{transition:none}
+  .hand,.clock,.controls-wrap{transition:none}
   .btn:focus,.preset:focus{transform:none}
 }
 
@@ -1156,6 +1162,8 @@ document.addEventListener('keydown', function(e){
     move(c === KEY.LEFT ? 'left' : c === KEY.RIGHT ? 'right' : c === KEY.UP ? 'up' : 'down');
   }
 });
+var uiWasOff = false;
+document.addEventListener('pointerdown', function(){ uiWasOff = app.classList.contains('ui-off'); }, true);
 ['mousemove','pointerdown','touchstart'].forEach(function(t){
   document.addEventListener(t, function(){ ctx(); showUI(); }, {passive:true});
 });
@@ -1167,7 +1175,10 @@ document.addEventListener('touchstart', function once(){
   document.documentElement.className += ' touch';
   document.removeEventListener('touchstart', once);
 }, {passive:true});
-clockEl.addEventListener('click', function(){ if (!topLayer()) { ctx(); toggle(); } });
+clockEl.addEventListener('click', function(){
+  if (uiWasOff) { uiWasOff = false; return; }
+  if (!topLayer()) { ctx(); toggle(); }
+});
 $('btnReset').addEventListener('click', reset);
 $('btnSkip').addEventListener('click', skip);
 $('btnPresets').addEventListener('click', openPresets);
