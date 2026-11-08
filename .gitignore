@@ -1,0 +1,12 @@
+# Nunca enviar certificados nem pacotes assinados
+*.p12
+*.pwd
+author.crt
+*.wgt
+.sign/
+SamsungCertificate/
+# Arquivos do Tizen Studio
+.metadata/
+.project
+.tproject
+.settings/
