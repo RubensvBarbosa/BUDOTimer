@@ -218,8 +218,8 @@ body{
   .paused-tag{font-size:15px}
   .clock{font-size:54vh;line-height:.9;transition:color .3s,font-size .35s ease}
   /* Durante o round, os botões saem da tela e o timer ocupa o espaço deles */
-  .controls-wrap{max-height:90px;overflow:hidden;transition:max-height .35s ease,opacity .35s,transform .35s}
-  #app.ui-off .controls-wrap{max-height:0}
+  .controls-wrap{max-height:90px;transition:max-height .35s ease,opacity .35s,transform .35s}
+  #app.ui-off .controls-wrap{max-height:0;overflow:hidden}
   #app.ui-off .clock{font-size:63vh}
   .progress{margin-top:3vh}
   .rounds{flex-direction:row;align-items:center;gap:14px;margin-top:6px}
@@ -260,6 +260,15 @@ body{
   .now{font-size:30px}
 }
 .touch .hint,.touch .sheet-head p,.touch .preset .key{display:none}
+/* No toque não existe "botão selecionado": tira o destaque de controle remoto */
+.touch .btn:focus{transform:none;box-shadow:none;background:var(--surface);color:var(--fg);border-color:var(--line)}
+.touch .btn.primary:focus{background:var(--surface-2);border-color:rgba(var(--phase-rgb),.55)}
+.touch .btn.danger:focus{background:var(--surface);color:var(--fg);border-color:rgba(255,93,79,.6)}
+.touch .preset:focus{transform:none;box-shadow:none;background:var(--surface-2);color:var(--fg);border-color:var(--line)}
+.touch .preset.is-on:focus{border-color:rgba(255,255,255,.45)}
+.touch .preset:focus .meta{color:var(--muted);opacity:1}
+.touch .row:focus{box-shadow:none;border-color:transparent;background:var(--surface-2)}
+.btn:active,.preset:active{transform:scale(.97)}
 /* Celular em pé: pede para girar */
 .rotate{display:none}
 @media (orientation:portrait) and (pointer:coarse) and (max-width:600px){
@@ -1171,6 +1180,9 @@ document.addEventListener('pointerdown', function(){ uiWasOff = app.classList.co
 /* ---------- Botões ---------- */
 btnPlay.addEventListener('click', toggle);
 /* No celular: tocar no relógio inicia e pausa */
+try {
+  if (!window.tizen && (navigator.maxTouchPoints > 0 || 'ontouchstart' in window)) document.documentElement.className += ' touch';
+} catch(e) {}
 document.addEventListener('touchstart', function once(){
   document.documentElement.className += ' touch';
   document.removeEventListener('touchstart', once);
