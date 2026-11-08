@@ -57,7 +57,7 @@ body{
 .brand i{display:inline-block;width:1.6em;height:.5em;border-radius:2px;background:var(--phase);transition:background .4s}
 .setup{font:600 clamp(14px,1.4vw,22px)/1.2 var(--ui);color:var(--muted);letter-spacing:.03em;text-align:right;min-width:0}
 .setup b{color:var(--fg);font-weight:700}
-.setup{margin-left:auto}
+.setup{text-align:right}
 /* Nome do app com o horário local logo abaixo */
 .ident{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(10px,1.4vh,18px)}
 /* Cartão do horário: mostrador analógico pequeno + hora digital com rótulo */
@@ -111,6 +111,22 @@ body{
 /* Controles */
 .controls-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;transition:opacity .45s,transform .45s}
 #app.ui-off .controls-wrap{opacity:0;transform:translateY(14px);pointer-events:none}
+/* Topo direito: treino + botão de idioma */
+.top-right{display:flex;align-items:center;gap:clamp(12px,1.2vw,22px);min-width:0;margin-left:auto}
+.lang-btn{display:flex;align-items:center;gap:.5em;flex-shrink:0;cursor:pointer;font:700 clamp(13px,.95vw,18px)/1 var(--ui);letter-spacing:.08em;
+  color:var(--muted);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:.45em .85em;
+  transition:opacity .45s,transform .15s,background .15s,color .15s,border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.lang-btn i{width:1px;height:.9em;background:var(--line)}
+.lang-btn span.on{color:var(--fg)}
+.lang-btn:focus{outline:none;background:var(--fg);color:var(--bg);border-color:var(--fg);transform:scale(1.1);box-shadow:0 0 0 4px rgba(var(--phase-rgb),.5)}
+.lang-btn:focus span{opacity:.45}
+.lang-btn:focus span.on{color:var(--bg);opacity:1}
+.touch .lang-btn:focus span{opacity:1}
+.lang-btn:focus i{background:var(--bg)}
+#app.ui-off .lang-btn{opacity:0;pointer-events:none}
+.touch .lang-btn:focus{transform:none;box-shadow:none;background:transparent;color:var(--muted);border-color:var(--line)}
+.touch .lang-btn:focus span.on{color:var(--fg)}
+.touch .lang-btn:focus i{background:var(--line)}
 .controls{display:flex;flex-wrap:wrap;gap:clamp(8px,1vw,16px)}
 .hint{margin:0;color:var(--muted);font:500 clamp(13px,1.15vw,19px)/1.3 var(--ui);letter-spacing:.02em}
 .hint kbd{font:700 1em var(--ui);color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:.05em .4em}
@@ -299,7 +315,10 @@ body{
         <span class="now" id="nowClock"></span>
       </div>
     </div>
-    <div class="setup" id="setupLabel"></div>
+    <div class="top-right">
+      <div class="setup" id="setupLabel"></div>
+      <button class="lang-btn" id="langBtn" data-nav aria-label="Trocar idioma"><span data-l="0">PT</span><i aria-hidden="true"></i><span data-l="1">EN</span></button>
+    </div>
   </header>
 
   <main class="stage">
@@ -387,7 +406,7 @@ body{
       </div>
       </div>
       <div class="settings-col">
-      <h3 class="group-title" data-i18n="Som e idioma">Som e idioma</h3>
+      <h3 class="group-title" data-i18n="Apitos e som">Apitos e som</h3>
       <div class="rows" id="genRows"></div>
       </div>
       </div>
@@ -433,7 +452,7 @@ var EN = {
   'Ex.: Rola de sexta':'e.g. Friday rolls', 'Cancelar':'Cancel', 'Salvar treino':'Save workout', 'total de':'total',
   'settingsHelp':'▲ ▼ move between options, ◀ ▶ change the value. Nothing changes until you save.',
   'Treino selecionado: ':'Selected workout: ', 'Excluir este treino':'Delete this workout', 'Confirmar exclusão':'Confirm delete',
-  'Som e idioma':'Sound and language',
+  'Apitos e som':'Beeps and sound', 'Trocar idioma':'Change language',
   'restoreNote':'Restore defaults sets every belt back to the IBJJF times, with the suggested rounds and rest, and the beeps to their initial values. Workouts you created are kept.',
   'Restaurar padrão':'Restore defaults', 'Confirmar restauração':'Confirm restore', 'Ouvir apito':'Play beep', 'Salvar':'Save',
   'Tempo de luta':'Roll time', 'Cor da faixa':'Belt color', 'Tipo de apito':'Beep sound', 'Apitos no fim de cada tempo':'Countdown beeps',
@@ -479,7 +498,6 @@ var PRESETS = [
 ];
 
 var VOL_LABELS = ['Mudo','Baixo','Médio','Alto'];
-var LANG_NAMES = ['Português','English'];
 var WORK_FIELDS = [
   {key:'round',  label:'Tempo de luta', min:30, max:1200, step:30, fmt:function(v){return fmt(v);}},
   {key:'rest',   label:'Descanso',      min:0,  max:300,  step:15, fmt:function(v){return v ? fmt(v) : t('Sem');}},
@@ -492,8 +510,7 @@ var GEN_FIELDS = [
   {key:'tone',  label:'Tipo de apito',                min:0, max:SOUNDS.length - 1, step:1, wrap:true, fmt:function(v){return t(SOUNDS[v].n);}},
   {key:'count', label:'Apitos no fim de cada tempo',  min:0, max:10, step:1, fmt:function(v){return v ? t('Últimos') + ' ' + v + ' s' : t('Desligado');}},
   {key:'vol',   label:'Volume',                       min:0, max:3,  step:1, fmt:function(v){return t(VOL_LABELS[v]);}},
-  {key:'prep',  label:'Preparação antes do 1º round', min:0, max:30, step:5, fmt:function(v){return v ? v + ' s' : t('Sem');}},
-  {key:'lang',  label:'Idioma', min:0, max:1, step:1, wrap:true, fmt:function(v){return LANG_NAMES[v];}}
+  {key:'prep',  label:'Preparação antes do 1º round', min:0, max:30, step:5, fmt:function(v){return v ? v + ' s' : t('Sem');}}
 ];
 
 var BELT_FIELDS = [
@@ -907,7 +924,7 @@ function adjust(key, dir, scope){
 var sdraft = null, restArmed = false, restT = null, btnRestore = $('btnRestore');
 function makeSDraft(){
   var w = act();
-  return {prep:cfg.prep, count:cfg.count, tone:cfg.tone, vol:cfg.vol, lang:cfg.lang, round:w.round, rest:w.rest, rounds:w.rounds,
+  return {prep:cfg.prep, count:cfg.count, tone:cfg.tone, vol:cfg.vol, round:w.round, rest:w.rest, rounds:w.rounds,
     name:w.name, belt:w.belt};
 }
 function isPreset(id){ return !!presetDef(id); }
@@ -960,8 +977,7 @@ function saveSettings(){
   var cw = findCustom(cfg.activeId), newName = cleanName(sdraft.name);
   if (cw && !newName) { toast(t('Escreva um nome para o treino')); $('setName').focus(); return; }
   var oldSig = workoutSig(), changed = sdraftChanged();
-  var langChanged = cfg.lang !== sdraft.lang;
-  cfg.prep = sdraft.prep; cfg.count = sdraft.count; cfg.tone = sdraft.tone; cfg.vol = sdraft.vol; cfg.lang = sdraft.lang;
+  cfg.prep = sdraft.prep; cfg.count = sdraft.count; cfg.tone = sdraft.tone; cfg.vol = sdraft.vol;
   if (cw) {
     cw.name = newName; cw.belt = sdraft.belt;
     cw.round = sdraft.round; cw.rest = sdraft.rest; cw.rounds = sdraft.rounds;
@@ -972,7 +988,6 @@ function saveSettings(){
   }
   applyCfgChange(oldSig);
   closeL();
-  if (langChanged) applyLang();
   toast(t(changed ? 'Ajustes salvos' : 'Nada foi alterado'));
 }
 function closeSettings(){
@@ -1070,9 +1085,9 @@ function openPresets(){
 }
 
 /* ---------- Navegação por foco (estilo Netflix) ---------- */
-function navRoot(){ return topLayer() || controls; }
+function navRoot(){ return topLayer() || app; }
 function navables(){
-  var list = navRoot().querySelectorAll('[data-nav]'), out = [];
+  var list = topLayer() ? topLayer().querySelectorAll('[data-nav]') : document.querySelectorAll('#controls [data-nav], #langBtn'), out = [];
   for (var i = 0; i < list.length; i++) if (!list[i].hidden && list[i].offsetParent !== null) out.push(list[i]);
   return out;
 }
@@ -1280,9 +1295,21 @@ function applyLang(){
   genRows.innerHTML = rowsHtml(GEN_FIELDS, 'g');
   $('beltRows').innerHTML = rowsHtml(BELT_FIELDS, 'g');
   draftRows.innerHTML = rowsHtml(WORK_FIELDS, 'd');
-  disarmRestore(); disarmDelete(); fsLabel();
+  disarmRestore(); disarmDelete(); fsLabel(); syncLangBtn();
   renderPresets(); render();
 }
+
+/* ---------- Botão PT | EN ---------- */
+var langBtn = $('langBtn');
+function syncLangBtn(){
+  var sp = langBtn.querySelectorAll('span');
+  for (var i = 0; i < sp.length; i++) sp[i].className = (+sp[i].getAttribute('data-l') === cfg.lang) ? 'on' : '';
+  langBtn.setAttribute('aria-label', t('Trocar idioma'));
+}
+langBtn.addEventListener('click', function(){
+  if (uiWasOff) { uiWasOff = false; return; }
+  cfg.lang = cfg.lang === 1 ? 0 : 1; save(); applyLang(); showUI();
+});
 
 /* ---------- Horário local ---------- */
 var nowEl = $('nowClock'), handH = $('handH'), handM = $('handM'), lastNow = '';
