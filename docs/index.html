@@ -210,19 +210,22 @@ body{
 @media (max-height:500px) and (orientation:landscape){
   #app{padding-top:8px;padding-bottom:8px}
   .top{gap:10px}
-  .brand{font-size:14px}
+  .brand{font-size:18px}
   .ident{gap:6px}
   .now-card{padding:4px 12px 4px 6px;gap:8px;border-radius:12px}
   .dial{width:32px;height:32px;border-width:2px}
   .hand{width:3px;margin-left:-1.5px}
   .mm{width:2px;margin-left:-1px}
   .now{font-size:34px}
-  .setup{font-size:13px}
+  .top{flex-wrap:nowrap}
+  .setup{font-size:16px;min-width:0;line-height:1.35}
   .stage{gap:4px;padding-top:0;padding-bottom:0}
   .phase-row{margin-bottom:10px}
   .phase{font-size:30px}
   .paused-tag{font-size:15px}
-  .clock{font-size:min(28vw,40vh)}
+  .clock{font-size:min(34vw,46vh);line-height:.9}
+  .progress{margin-top:3vh}
+  .round-label{margin-top:2px}
   .rounds{gap:6px}
   .round-label{font-size:18px}
   .belt{height:12px}
@@ -246,6 +249,13 @@ body{
   .step{width:1.8em;height:1.8em}
 }
 /* No toque, as dicas de controle remoto não fazem sentido */
+/* Celulares deitados bem baixos (ex.: iPhone SE) */
+@media (max-height:385px) and (orientation:landscape){
+  .clock{font-size:min(34vw,40vh)}
+  .progress{margin-top:2vh}
+  .now-card{padding:2px 10px 2px 6px}
+  .now{font-size:30px}
+}
 .touch .hint,.touch .sheet-head p,.touch .preset .key{display:none}
 /* Celular em pé: pede para girar */
 .rotate{display:none}
