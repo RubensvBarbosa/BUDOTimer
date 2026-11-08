@@ -211,10 +211,11 @@ body{
   .phase-row{margin-bottom:10px}
   .phase{font-size:30px}
   .paused-tag{font-size:15px}
-  .clock{font-size:min(34vw,46vh);line-height:.9}
+  .clock{font-size:min(38vw,54vh);line-height:.9}
   .progress{margin-top:3vh}
-  .round-label{margin-top:2px}
-  .rounds{gap:6px}
+  .rounds{flex-direction:row;align-items:center;gap:14px;margin-top:6px}
+  .round-label{white-space:nowrap;text-align:left}
+  .belt{flex:1;width:auto}
   .round-label{font-size:18px}
   .belt{height:12px}
   .controls{gap:8px}
@@ -237,9 +238,12 @@ body{
   .step{width:1.8em;height:1.8em}
 }
 /* No toque, as dicas de controle remoto não fazem sentido */
+@media (max-height:410px) and (orientation:landscape){
+  .clock{font-size:min(38vw,50vh)}
+}
 /* Celulares deitados bem baixos (ex.: iPhone SE) */
 @media (max-height:385px) and (orientation:landscape){
-  .clock{font-size:min(34vw,40vh)}
+  .clock{font-size:min(34vw,45vh)}
   .progress{margin-top:2vh}
   .now-card{padding:2px 10px 2px 6px}
   .now{font-size:30px}
