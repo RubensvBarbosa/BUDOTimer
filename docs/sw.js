@@ -1,5 +1,5 @@
 /* BUDO Timer: funciona sem internet depois da primeira abertura */
-var CACHE = 'budo-timer-e15a63854d';
+var CACHE = 'budo-timer-aa0aab52b6';
 var FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 self.addEventListener('install', function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(FILES); }).then(function(){ return self.skipWaiting(); }));
@@ -13,7 +13,7 @@ self.addEventListener('fetch', function(e){
   if (e.request.method !== 'GET') return;
   /* Página: tenta a versão nova primeiro, cai para a guardada sem internet */
   if (e.request.mode === 'navigate') {
-    e.respondWith(fetch(e.request).then(function(r){
+    e.respondWith(fetch(e.request.url, {cache: 'no-cache'}).then(function(r){
       var copy = r.clone(); caches.open(CACHE).then(function(c){ c.put('./index.html', copy); }); return r;
     }).catch(function(){ return caches.match('./index.html'); }));
     return;

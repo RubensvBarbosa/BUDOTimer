@@ -31,7 +31,17 @@ HEAD = """<!doctype html>
 REGISTER = """<script>
 /* Guarda o app no celular para abrir sem internet */
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(function(reg){
+      try { reg.update(); } catch(e) {}
+    }).catch(function(){});
+  });
+  /* Chegou versão nova com o app aberto: recarrega uma vez para mostrar */
+  var hadController = !!navigator.serviceWorker.controller, reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if (!hadController || reloaded) return;
+    reloaded = true; location.reload();
+  });
 }
 /* Mantém deitado quando o celular deixa (Android, app instalado) */
 try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(function(){}); } catch(e) {}
@@ -53,7 +63,7 @@ self.addEventListener('fetch', function(e){
   if (e.request.method !== 'GET') return;
   /* Página: tenta a versão nova primeiro, cai para a guardada sem internet */
   if (e.request.mode === 'navigate') {
-    e.respondWith(fetch(e.request).then(function(r){
+    e.respondWith(fetch(e.request.url, {cache: 'no-cache'}).then(function(r){
       var copy = r.clone(); caches.open(CACHE).then(function(c){ c.put('./index.html', copy); }); return r;
     }).catch(function(){ return caches.match('./index.html'); }));
     return;
