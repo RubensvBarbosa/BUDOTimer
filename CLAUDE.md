@@ -58,7 +58,14 @@ Certificado Samsung: perfil "BudoTimer", em `C:\Users\ruben\SamsungCertificate\B
 
 ## TV da academia (pendente)
 
-Em espera até ter informações (marca da TV). O PC é uma torre ligada por cabo, então o plano é usar um notebook emprestado com a pasta `C:\tizen-studio\tools` num pendrive: ligar o modo desenvolvedor na TV da academia, ler o DUID com `sdb.exe shell 0 getduid`, acrescentar esse DUID no certificado em casa, gerar o pacote e instalar com `tizen.bat install`.
+A TV da academia é uma **TCL Premium QLED** (marca e selo vistos em fotos em 9/11/2026). Falta confirmar o modelo e o sistema: na próxima ida à academia, foto da tela inicial ou de Definições > Sistema > Acerca de.
+
+Se for Google TV / Android TV (o mais provável para TCL QLED em Portugal), o plano é:
+- Criar um app Android para TV (APK com WebView, Leanback, tela sempre acesa) carregando o `src/budo-timer.html`, compilado de graça pelo GitHub Actions e publicado como Release no repositório.
+- Na TV: instalar o app **Downloader** pela Play Store, permitir "fontes desconhecidas" para ele, digitar o endereço do APK e instalar. Sem computador, sem modo desenvolvedor, sem certificado.
+- Conferir no WebView: setas e OK chegam como teclas 37 a 40 e 13; tecla Voltar do Android precisa ser tratada (fechar camadas e sair do app); teclas de mídia podem chegar como 179.
+
+O plano antigo (notebook emprestado + Tizen) só vale se a TV for Samsung.
 
 ## Ideias para depois
 
