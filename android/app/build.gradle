@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Cada geração no GitHub ganha um número maior, para a TV aceitar como atualização.
+def buildNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1').toInteger()
+
+android {
+    namespace 'app.budotimer.tv'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'app.budotimer.tv'
+        minSdk 21
+        targetSdk 34
+        versionCode buildNumber
+        versionName '1.0.' + buildNumber
+    }
+
+    // Chave fixa do projeto: as atualizações precisam ser assinadas sempre com a mesma.
+    signingConfigs {
+        budo {
+            storeFile file('../budo-timer.keystore')
+            storePassword 'budotimer'
+            keyAlias 'budo'
+            keyPassword 'budotimer'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.budo
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.11.0'
+}

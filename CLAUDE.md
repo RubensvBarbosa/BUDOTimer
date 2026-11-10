@@ -17,8 +17,9 @@ Timer de rounds para jiu-jitsu, criado para a TV da academia onde a dona do proj
 | `build_web.py` | Gera `docs/` (app do celular, PWA publicado pelo GitHub Pages). |
 | `tizen/` | `index.html`, `config.xml` (id `BudoTimr01.BudoTimer`) e `icon.png`. |
 | `docs/` | `index.html`, `manifest.webmanifest`, `sw.js` e ícones. Publicado em https://rubensvbarbosa.github.io/BUDOTimer/ |
+| `android/`, `build_android.py`, `.github/workflows/android-tv.yml` | App para TV Android / Google TV (WebView). O GitHub Actions compila e publica `BudoTimer.apk` na Release `tv`. Página de download: https://rubensvbarbosa.github.io/BUDOTimer/tv |
 
-Depois de editar `src/budo-timer.html`, sempre rodar `python3 build_tv.py` e `python3 build_web.py` e enviar `src/`, `tizen/` e `docs/` juntos.
+Depois de editar `src/budo-timer.html`, sempre rodar `python3 build_tv.py`, `python3 build_web.py` e `python3 build_android.py` e enviar tudo junto. O push em `src/` dispara a compilação do APK; conferir com `gh run list`.
 
 ## Restrições da TV (importante)
 
@@ -58,12 +59,11 @@ Certificado Samsung: perfil "BudoTimer", em `C:\Users\ruben\SamsungCertificate\B
 
 ## TV da academia (pendente)
 
-A TV da academia é uma **TCL Premium QLED** (marca e selo vistos em fotos em 9/11/2026). Falta confirmar o modelo e o sistema: na próxima ida à academia, foto da tela inicial ou de Definições > Sistema > Acerca de.
+A TV da academia é uma **TCL Premium QLED** (vista em 9/11/2026). Falta confirmar na hora se é Google TV (Definições > Sistema > Acerca de).
 
-Se for Google TV / Android TV (o mais provável para TCL QLED em Portugal), o plano é:
-- Criar um app Android para TV (APK com WebView, Leanback, tela sempre acesa) carregando o `src/budo-timer.html`, compilado de graça pelo GitHub Actions e publicado como Release no repositório.
-- Na TV: instalar o app **Downloader** pela Play Store, permitir "fontes desconhecidas" para ele, digitar o endereço do APK e instalar. Sem computador, sem modo desenvolvedor, sem certificado.
-- Conferir no WebView: setas e OK chegam como teclas 37 a 40 e 13; tecla Voltar do Android precisa ser tratada (fechar camadas e sair do app); teclas de mídia podem chegar como 179.
+O app Android já está pronto (10/11/2026). Na TV: Play Store > instalar **Downloader** > autorizar fontes desconhecidas para ele > digitar `rubensvbarbosa.github.io/BUDOTimer/tv` > Baixar > Instalar. Passo a passo completo no README.
+
+No app Android: setas e OK chegam como teclas 37 a 40 e 13; play/pause como 179; o Voltar do Android chama `window.budoBack()`. A página detecta a TV Android pelo `BudoTimerTV` no user agent (não liga o modo de toque e esconde Tela cheia).
 
 O plano antigo (notebook emprestado + Tizen) só vale se a TV for Samsung.
 

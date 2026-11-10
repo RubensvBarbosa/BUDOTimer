@@ -221,6 +221,7 @@ body{
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 @media (max-width:1100px){.settings-cols{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:1100px){.hint-num{display:none}}
 @media (max-width:820px){.preset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hint{display:none}}
 /* Celular deitado: tela baixa, tudo mais compacto */
 @media (max-height:500px) and (orientation:landscape){
@@ -376,7 +377,7 @@ try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock
       <button class="btn" id="btnPresets" data-nav data-i18n="Treinos">Treinos</button>
       <button class="btn" id="btnFull" data-nav>Tela cheia</button>
     </nav>
-    <p class="hint" data-i18n="hint"><kbd>◀ ▶</kbd> escolhem &nbsp;·&nbsp; <kbd>OK</kbd> confirma &nbsp;·&nbsp; <kbd>1</kbd> a <kbd>9</kbd> trocam o treino</p>
+    <p class="hint" data-i18n="hint"><kbd>◀ ▶</kbd> escolhem &nbsp;·&nbsp; <kbd>OK</kbd> confirma<span class="hint-num"> &nbsp;·&nbsp; <kbd>1</kbd> a <kbd>9</kbd> trocam o treino</span></p>
   </div>
 
   <!-- Treinos -->
@@ -473,7 +474,7 @@ var EN = {
   'luta':'roll', 'descanso':'rest', 'sem descanso':'no rest',
   'Iniciar':'Start', 'Pausar':'Pause', 'Continuar':'Resume', 'Recomeçar':'Restart', 'Reiniciar':'Reset', 'Pular fase':'Skip',
   'Treinos':'Workouts', 'Tela cheia':'Full screen', 'Sair da tela cheia':'Exit full screen',
-  'hint':'<kbd>◀ ▶</kbd> move &nbsp;·&nbsp; <kbd>OK</kbd> select &nbsp;·&nbsp; <kbd>1</kbd> to <kbd>9</kbd> switch workout',
+  'hint':'<kbd>◀ ▶</kbd> move &nbsp;·&nbsp; <kbd>OK</kbd> select<span class="hint-num"> &nbsp;·&nbsp; <kbd>1</kbd> to <kbd>9</kbd> switch workout</span>',
   'presetsHelp':'OK selects a workout. OK again on the same workout opens the timer. Back closes.',
   'presetsNote':'Belts start with the IBJJF adult match times. Roll time, rest and rounds of the selected belt can be changed in Settings, and the Adjusted tag shows when a belt is off the default.',
   'Ajustes':'Settings', 'Fechar':'Close', 'Selecionado':'Selected', 'Ajustado':'Adjusted', 'Criado':'Custom',
@@ -1110,6 +1111,13 @@ function closeL(){
   showUI();
 }
 function closeTop(){ if (topLayer() === settingsLayer) closeSettings(); else closeL(); }
+/* App Android de TV: o botão Voltar do controle chama isto. Devolve true se tratou; false fecha o app. */
+var IS_ANDROID_TV = /BudoTimerTV/.test(navigator.userAgent || '');
+window.budoBack = function(){
+  if (topLayer()) { closeTop(); return true; }
+  if (state === 'running') { showUI(); return true; }
+  return false;
+};
 function openPresets(){
   renderPresets();
   openL(presetsLayer, presetGrid.querySelector('.is-on') || presetGrid.querySelector('[data-nav]'));
@@ -1152,7 +1160,7 @@ function move(dir){
 
 /* Teclas do controle (códigos da Samsung/Tizen incluídos) */
 var KEY = {LEFT:37, UP:38, RIGHT:39, DOWN:40, ENTER:13, ESC:27, BACKSPACE:8, BACK:10009,
-           PLAYPAUSE:10252, PLAY:415, PAUSE:19, STOP:413};
+           PLAYPAUSE:10252, PLAY:415, PAUSE:19, STOP:413, MEDIA_PLAYPAUSE:179};
 try {
   if (window.tizen && tizen.tvinputdevice) {
     ['MediaPlayPause','MediaPlay','MediaPause','MediaStop','0','1','2','3','4','5','6','7','8','9'].forEach(function(k){
@@ -1176,7 +1184,7 @@ document.addEventListener('keydown', function(e){
     return;
   }
 
-  if (c === KEY.PLAYPAUSE) { e.preventDefault(); toggle(); return; }
+  if (c === KEY.PLAYPAUSE || c === KEY.MEDIA_PLAYPAUSE) { e.preventDefault(); toggle(); return; }
   if (c === KEY.PLAY)  { e.preventDefault(); play(); return; }
   if (c === KEY.PAUSE) { e.preventDefault(); pause(); return; }
   if (c === KEY.STOP)  { e.preventDefault(); reset(); return; }
@@ -1230,7 +1238,7 @@ document.addEventListener('pointerdown', function(){ uiWasOff = app.classList.co
 btnPlay.addEventListener('click', toggle);
 /* No celular: tocar no relógio inicia e pausa */
 try {
-  if (!window.tizen && (navigator.maxTouchPoints > 0 || 'ontouchstart' in window)) document.documentElement.className += ' touch';
+  if (!window.tizen && !IS_ANDROID_TV && (navigator.maxTouchPoints > 0 || 'ontouchstart' in window)) document.documentElement.className += ' touch';
 } catch(e) {}
 document.addEventListener('touchstart', function once(){
   document.documentElement.className += ' touch';
@@ -1274,7 +1282,7 @@ presetGrid.addEventListener('click', function(e){
 var btnFull = $('btnFull');
 var fsOk = document.fullscreenEnabled || document.webkitFullscreenEnabled;
 /* Na TV o app já abre em tela cheia */
-if (!fsOk || window.tizen) btnFull.hidden = true;
+if (!fsOk || window.tizen || IS_ANDROID_TV) btnFull.hidden = true;
 function fsEl(){ return document.fullscreenElement || document.webkitFullscreenElement; }
 btnFull.addEventListener('click', function(){
   try {

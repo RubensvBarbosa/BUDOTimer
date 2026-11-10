@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BUDO Timer para TV</title>
+<style>
+  :root{--bg:#202124;--surface:#2a2b2f;--line:#4a4c51;--fg:#f4f4f2;--muted:#a8aaae;--accent:#2fd27a}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+    display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;text-align:center}
+  main{max-width:720px;display:flex;flex-direction:column;align-items:center;gap:22px}
+  .belt{width:220px;height:16px;border-radius:3px;background:linear-gradient(90deg,#ecebe4 0 72%,#0c0c0c 72% 100%)}
+  h1{margin:0;font-size:46px;letter-spacing:.12em;text-transform:uppercase}
+  p{margin:0;color:var(--muted);font-size:22px;line-height:1.4}
+  a.get{display:inline-block;margin-top:6px;padding:20px 40px;border-radius:14px;background:var(--surface);color:var(--fg);
+    border:3px solid var(--accent);font-size:30px;font-weight:700;text-decoration:none}
+  a.get:focus,a.get:hover{outline:none;background:var(--fg);color:var(--bg);border-color:var(--fg);box-shadow:0 0 0 6px rgba(47,210,122,.5)}
+  small{color:var(--muted);font-size:17px}
+</style>
+</head>
+<body>
+<main>
+  <div class="belt" aria-hidden="true"></div>
+  <h1>BUDO Timer</h1>
+  <p>App para TVs Android e Google TV. Aperte OK para baixar e depois em Instalar.</p>
+  <a class="get" id="get" href="https://github.com/RubensvBarbosa/BUDOTimer/releases/download/tv/BudoTimer.apk">Baixar para a TV</a>
+  <small>Download the BUDO Timer app for Android TV / Google TV.</small>
+</main>
+<script>try { document.getElementById('get').focus(); } catch(e) {}</script>
+</body>
+</html>

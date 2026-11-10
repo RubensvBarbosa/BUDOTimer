@@ -22,6 +22,7 @@ Timer de rounds para jiu-jitsu. Roda na TV (só com o controle remoto) e no celu
 | `docs/` | App do celular, publicado pelo GitHub Pages. |
 | `build_tv.py` | Gera `tizen/index.html` a partir de `src/budo-timer.html`, com ajustes para TVs Samsung antigas (2019 ou anteriores). |
 | `build_web.py` | Gera a pasta `docs/` a partir de `src/budo-timer.html` (precisa do Pillow para os ícones: `pip install pillow`). |
+| `android/` e `build_android.py` | App para TVs Android / Google TV, compilado pelo GitHub Actions. |
 
 ## Celular
 
@@ -52,7 +53,29 @@ O ícone do BUDO Timer aparece na tela inicial. Ele abre em tela cheia, funciona
 2. Rode `python3 build_web.py` (no Windows, `py build_web.py`).
 3. Suba as mudanças para o GitHub. Na próxima vez que o app abrir com internet, ele pega a versão nova.
 
-## Atualizar o app da TV depois de mudar o código
+## TV Android / Google TV (TCL, Sony, Philips, Xiaomi...)
+
+O GitHub gera o app sozinho (`BudoTimer.apk`) sempre que `src/` ou `android/` mudam, pelo GitHub Actions (aba **Actions**, "App para TV Android"). O arquivo fica em **Releases**, na versão "tv".
+
+### Instalar na TV (uma vez)
+
+1. Na TV, abra a **Play Store** (Google Play), procure **Downloader** (ícone laranja, da AFTVnews) e instale.
+2. Vá em **Definições > Sistema > Programador / Opções de programador**, ou em **Definições > Apps > Segurança e restrições > Fontes desconhecidas**, e autorize o **Downloader** a instalar apps. Em muitas TVs, o próprio Downloader pede essa permissão na primeira instalação e leva direto à tela certa.
+3. Abra o Downloader e, no campo de endereço, digite: `rubensvbarbosa.github.io/BUDOTimer/tv`
+4. Na página que abrir, aperte OK em **Baixar para a TV** e depois em **Instalar**.
+5. O BUDO Timer aparece em **Apps** (e pode ser fixado na tela inicial).
+
+### Atualizar
+
+Repita os passos 3 e 4. A versão nova instala por cima e mantém os treinos e ajustes salvos.
+
+### Detalhes técnicos
+
+- `build_android.py` copia `src/budo-timer.html` para `android/app/src/main/assets/index.html`.
+- O app é um WebView em tela cheia (`app.budotimer.tv`), com a tela sempre acesa. O botão Voltar chama `window.budoBack()` na página: fecha janelas, mostra os botões durante o round e, com o timer parado, sai do app.
+- A chave de assinatura (`android/budo-timer.keystore`, senha `budotimer`) fica no repositório de propósito: as atualizações precisam ser assinadas sempre com a mesma chave. Não é um segredo; serve só para este app.
+
+## Atualizar o app da TV Samsung depois de mudar o código
 
 1. Faça a mudança em `src/budo-timer.html`.
 2. Na pasta do projeto, rode `python3 build_tv.py` (no Windows, `py build_tv.py`).
