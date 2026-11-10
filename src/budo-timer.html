@@ -200,6 +200,11 @@ body{
   border:2px solid var(--line);border-radius:12px;padding:.35em .55em;width:100%;box-sizing:border-box}
 .namebox input::placeholder{color:var(--muted);opacity:.7}
 .namebox input:focus{outline:none;border-color:var(--fg);box-shadow:0 0 0 4px rgba(var(--phase-rgb),.35)}
+/* Na TV o campo só abre o teclado com OK: a dica aparece quando ele está selecionado */
+.edit-hint{display:none;margin-left:.6em;font-size:.75em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bg);background:var(--fg);border-radius:6px;padding:.15em .5em}
+.namebox:focus-within .edit-hint{display:inline-block}
+.namebox.editing .edit-hint,.touch .edit-hint{display:none}
+.namebox.editing input{border-color:var(--work);box-shadow:0 0 0 4px rgba(47,210,122,.35)}
 .preview{display:flex;align-items:center;gap:1em;flex-wrap:wrap;color:var(--muted);font:600 clamp(14px,1.3vw,21px)/1.3 var(--ui)}
 .preview .swatch{width:clamp(110px,14vw,200px)}
 .preview b{color:var(--fg)}
@@ -375,7 +380,7 @@ body{
         <p data-i18n="editorHelp">▲ ▼ mudam de linha, ◀ ▶ mudam o valor.</p>
       </div>
       <label class="namebox" for="nameInput">
-        <span data-i18n="Nome do treino">Nome do treino</span>
+        <span><span data-i18n="Nome do treino">Nome do treino</span> <span class="edit-hint" data-i18n="OK para escrever">OK para escrever</span></span>
         <input id="nameInput" type="text" maxlength="28" placeholder="Ex.: Rola de sexta" autocomplete="off" spellcheck="false" data-nav>
       </label>
       <div class="rows" id="draftRows"></div>
@@ -398,7 +403,7 @@ body{
       <div class="settings-col">
       <h3 class="group-title" id="selTitle">Treino selecionado</h3>
       <label class="namebox" for="setName" id="setNameBox" hidden>
-        <span data-i18n="Nome do treino">Nome do treino</span>
+        <span><span data-i18n="Nome do treino">Nome do treino</span> <span class="edit-hint" data-i18n="OK para escrever">OK para escrever</span></span>
         <input id="setName" type="text" maxlength="28" autocomplete="off" spellcheck="false" data-nav>
       </label>
       <div class="rows" id="beltRows"></div>
@@ -449,7 +454,7 @@ var EN = {
   'Ajustes':'Settings', 'Fechar':'Close', 'Selecionado':'Selected', 'Ajustado':'Adjusted', 'Criado':'Custom',
   'Criar treino':'New workout', 'Escolha o nome, os tempos e a cor da faixa':'Pick a name, the times and the belt color',
   ' selecionado. OK de novo abre o timer':' selected. Press OK again to open the timer',
-  'Novo treino':'New workout', 'editorHelp':'▲ ▼ change row, ◀ ▶ change the value.', 'Nome do treino':'Workout name',
+  'Novo treino':'New workout', 'editorHelp':'▲ ▼ change row, ◀ ▶ change the value.', 'Nome do treino':'Workout name', 'OK para escrever':'OK to type',
   'Ex.: Rola de sexta':'e.g. Friday rolls', 'Cancelar':'Cancel', 'Salvar treino':'Save workout', 'total de':'total',
   'settingsHelp':'▲ ▼ move between options, ◀ ▶ change the value. Nothing changes until you save.',
   'Treino selecionado: ':'Selected workout: ', 'Excluir este treino':'Delete this workout', 'Confirmar exclusão':'Confirm delete',
@@ -1143,7 +1148,9 @@ document.addEventListener('keydown', function(e){
   var c = e.keyCode;
   var isArrow = c >= 37 && c <= 40;
   var ae = document.activeElement;
-  var typing = ae && ae.tagName === 'INPUT';
+  /* Campo de nome selecionado mas fechado: OK abre o teclado */
+  if (ae && ae.tagName === 'INPUT' && ae.readOnly && c === KEY.ENTER) { e.preventDefault(); startEdit(ae); return; }
+  var typing = ae && ae.tagName === 'INPUT' && !ae.readOnly;
   var layer = topLayer();
 
   /* Escrevendo o nome: setas laterais e números ficam com o campo de texto */
@@ -1306,6 +1313,26 @@ function applyLang(){
   disarmRestore(); disarmDelete(); fsLabel(); syncLangBtn();
   renderPresets(); render();
 }
+
+/* ---------- Campos de nome: o teclado só abre com OK ---------- */
+var refocusing = false;
+function isTouchUI(){ return /(^|\s)touch(\s|$)/.test(document.documentElement.className); }
+function lockInput(inp){
+  inp.readOnly = true;
+  inp.parentNode.className = inp.parentNode.className.replace(/\s*editing/g, '');
+}
+function startEdit(inp){
+  inp.readOnly = false;
+  if (!/editing/.test(inp.parentNode.className)) inp.parentNode.className += ' editing';
+  refocusing = true;
+  try { inp.blur(); inp.focus(); var n = inp.value.length; inp.setSelectionRange(n, n); } catch(e) {}
+  refocusing = false;
+}
+[nameInput, $('setName')].forEach(function(inp){
+  if (!isTouchUI()) lockInput(inp);
+  inp.addEventListener('blur', function(){ if (!refocusing && !isTouchUI()) lockInput(inp); });
+  inp.addEventListener('click', function(){ if (inp.readOnly) startEdit(inp); });
+});
 
 /* ---------- Botão PT | EN ---------- */
 var langBtn = $('langBtn');
